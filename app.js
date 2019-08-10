@@ -17,14 +17,14 @@ var request = require('request');
 var async = require("async");
 var spawn = require('child_process').spawn;
 
-var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+var VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
 
 
 var totalAnalysisRequests = 0;
 var completeAnalysisRequests = 0;
 
 var rootDir = './uploads';
-var MIN_TILE_SIZE = 200;
+var MIN_TILE_SIZE = 250;
 
 // PUT YOUR WATSON KEY AND CLASSIFIER ID HERE:
 var WATSON_KEY = "";
@@ -32,8 +32,8 @@ var WATSON_CLASSIFIER = "";
 
 
 var visual_recognition = new VisualRecognitionV3({
-    api_key: WATSON_KEY,
-    version_date: '2016-05-19'
+    iam_apikey: WATSON_KEY,
+    version: '2016-05-19'
 });
 
 // cfenv provides access to your Cloud Foundry environment
@@ -134,11 +134,6 @@ app.post('/file-upload', function(req, res) {
         }
     });
 });
-
-
-
-
-
 
 function generateImageTiles(sessionId, options, callback) {
 
@@ -246,9 +241,6 @@ function generateImageTiles(sessionId, options, callback) {
 }
 
 
-
-
-
 function processImages(sessionId, imageData, callback) {
     update(sessionId, "performing analysis on images...")
 
@@ -277,13 +269,6 @@ function processImages(sessionId, imageData, callback) {
     })
 
 }
-
-
-
-
-
-
-
 
 
 function analyzeImage(sessionId, _image) {
@@ -324,18 +309,6 @@ function analyzeImage(sessionId, _image) {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 io.on('connection', function(socket) {
     appSocket = socket
