@@ -79,15 +79,19 @@ app.post('/file-upload', function(req, res) {
         fs.mkdirSync(uploadDir);
     }
 
-    var tileWidth = req.body.tileWidth ? req.body.tileWidth : MIN_TILE_SIZE;
-    var tileHeight = req.body.tileHeight ? req.body.tileHeight : MIN_TILE_SIZE;
+    // HACK to force the MIN_TILE_SIZE
+    // var tileWidth = req.body.tileWidth ? req.body.tileWidth : MIN_TILE_SIZE;
+    // var tileHeight = req.body.tileHeight ? req.body.tileHeight : MIN_TILE_SIZE;
+    //
+    // if (tileWidth < MIN_TILE_SIZE) {
+    //     tileWidth = MIN_TILE_SIZE
+    // }
+    // if (tileHeight < MIN_TILE_SIZE) {
+    //     tileHeight = MIN_TILE_SIZE
+    // }
 
-    if (tileWidth < MIN_TILE_SIZE) {
-        tileWidth = MIN_TILE_SIZE
-    }
-    if (tileHeight < MIN_TILE_SIZE) {
-        tileHeight = MIN_TILE_SIZE
-    }
+    var tileWidth = MIN_TILE_SIZE;
+    var tileHeight = MIN_TILE_SIZE;
 
 
     sampleFile = req.files.file;
